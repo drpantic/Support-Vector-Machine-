@@ -1,0 +1,19 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import csv
+from google.colab import files
+uploaded = files.upload()
+df = pd.read_csv(filepath_or_buffer = 'Book1.csv', delimiter=',') 
+df.head()
+from sklearn import svm
+from sklearn.model_selection import train_test_split
+from sklearn import metrics
+X= df[[ 'W1', 'W2', 'W3', 'W4' ]]
+y = df['Damage']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+my_model=svm.SVC()
+my_model.fit(X_train, y_train)
+y_predict = my_model.predict(X_test)
+accuracy = metrics.accuracy_score(y_test, y_predict)
+print('Estimated accuracy of the SVM model is', accuracy)
